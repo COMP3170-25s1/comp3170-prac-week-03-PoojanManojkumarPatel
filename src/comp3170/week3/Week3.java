@@ -16,12 +16,13 @@ public class Week3 implements IWindowListener {
 
 	private Window window;
 	private Shader shader;
+	private Scene scene;
 	
 	final private File DIRECTORY = new File("src/comp3170/week3"); 
 	
 	private int width = 800;
 	private int height = 800;
-	private Scene scene;
+	private long oldTime;
 	
 	public Week3() throws OpenGLException  {
 		
@@ -41,7 +42,7 @@ public class Week3 implements IWindowListener {
 		// set the background colour to white
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);	
 		
-		// create the scene
+		// create the plane
 		scene = new Scene();
 		
 	}
@@ -54,7 +55,15 @@ public class Week3 implements IWindowListener {
 		glClear(GL_COLOR_BUFFER_BIT);	
 		
 		scene.draw();
+		update();
 	    
+	}
+	
+	public void update() {
+		long time = System.currentTimeMillis();
+		float deltaTime = (time - oldTime)/1000f;
+		oldTime = time;
+		scene.update(deltaTime);
 	}
 
 	@Override
